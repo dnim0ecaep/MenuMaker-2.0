@@ -1,0 +1,155 @@
+{
+  "categories": {
+    "System Tools": {
+      "expanded": false,
+      "items": [
+        {
+          "label": "System Monitor",
+          "cmd": "htop",
+          "info": "Interactive process viewer and system monitor",
+          "category": "System Tools"
+        },
+        {
+          "label": "System Information",
+          "cmd": "uname -a",
+          "info": "Display system and kernel information",
+          "category": "System Tools"
+        },
+        {
+          "label": "Process List",
+          "cmd": "ps aux",
+          "info": "Show all running processes with details",
+          "category": "System Tools",
+          "pause": true
+        }
+      ]
+    },
+    "File Management": {
+      "expanded": true,
+      "items": [
+        {
+          "label": "File Manager",
+          "cmd": "mc",
+          "info": "Midnight Commander - full-featured file manager",
+          "category": "File Management"
+        },
+        {
+          "label": "Text Editor",
+          "cmd": "nano",
+          "info": "Simple command-line text editor",
+          "category": "File Management"
+        },
+        {
+          "label": "Directory Listing",
+          "cmd": "ls -la",
+          "info": "List directory contents with detailed information",
+          "category": "File Management",
+          "pause": true
+        }
+      ]
+    },
+    "System Status": {
+      "expanded": true,
+      "items": [
+        {
+          "label": "Disk Usage",
+          "cmd": "df -h",
+          "info": "Display filesystem disk space usage",
+          "category": "System Status"
+        },
+        {
+          "label": "Memory Usage",
+          "cmd": "free -h",
+          "info": "Display amount of free and used memory",
+          "category": "System Status"
+        },
+        {
+          "label": "Network Status",
+          "cmd": "ip addr show",
+          "info": "Show network interface configuration",
+          "category": "System Status"
+        }
+      ]
+    },
+    "Development": {
+      "expanded": true,
+      "items": [
+        {
+          "label": "Python Version",
+          "cmd": "python3 --version",
+          "info": "Display installed Python version",
+          "category": "Development"
+        },
+        {
+          "label": "Return to Menu Maker",
+          "cmd": "python3 main.py",
+          "info": "Restart the Menu Maker application",
+          "category": "Development"
+        }
+      ]
+    },
+    "Bin Executables": {
+      "expanded": true,
+      "items": [
+        {
+          "label": "Backup System",
+          "cmd": "./bin/backup-system",
+          "info": "Executable: backup-system",
+          "category": "Bin Executables"
+        },
+        {
+          "label": "Network Monitor",
+          "cmd": "./bin/network-monitor",
+          "info": "Executable: network-monitor",
+          "category": "Bin Executables"
+        },
+        {
+          "label": "Log Analyzer",
+          "cmd": "./bin/log-analyzer",
+          "info": "Executable: log-analyzer",
+          "category": "Bin Executables"
+        },
+        {
+          "label": "Btop",
+          "cmd": "./bin/btop",
+          "info": "Executable: btop",
+          "category": "Bin Executables"
+        },
+        {
+          "label": "Taskwarrior Tui",
+          "cmd": "./bin/taskwarrior-tui",
+          "info": "Executable: taskwarrior-tui",
+          "category": "Bin Executables"
+        },
+        {
+          "label": "K9S",
+          "cmd": "./bin/k9s",
+          "info": "Executable: k9s",
+          "category": "Bin Executables"
+        },
+        {
+          "label": "Lazydocker",
+          "cmd": "./bin/lazydocker",
+          "info": "Executable: lazydocker",
+          "category": "Bin Executables"
+        },
+        {
+          "label": "Btm",
+          "cmd": "./bin/btm",
+          "info": "Executable: btm",
+          "category": "Bin Executables"
+        },
+        {
+          "label": "Lazygit",
+          "cmd": "./bin/lazygit",
+          "info": "Executable: lazygit",
+          "category": "Bin Executables"
+        }
+      ]
+    }
+  },
+  "app_settings": {
+    "theme": "classic",
+    "title": "Menu Maker \u2014 Enhanced Categorized Menu System"
+  }
+}
