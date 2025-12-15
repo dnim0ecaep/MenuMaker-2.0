@@ -17,6 +17,7 @@ from textual.widgets import Header, Footer, Static, Button, Input, Label, TextAr
 from textual.binding import Binding
 from textual.screen import Screen
 from textual.reactive import reactive
+from textual.events import Click
 
 
 DEFAULT_COLOR_PAIRS = [
@@ -1241,6 +1242,51 @@ class MenuMaker(App):
                 if self.menu_container:
                     self.ensure_widget_visible(current_widget, current_idx)
     
+    def select_widget_from_display(self, widget: Static) -> Optional[Dict[str, Any]]:
+        """Select the display entry associated with a widget and return it."""
+        if not widget:
+            return None
+        
+        for idx, item in enumerate(self.display_items):
+            if item.get("widget") is widget:
+                object.__setattr__(self, 'current_index', idx)
+                self.update_highlighting()
+                self.update_status()
+                return item
+        return None
+    
+    async def on_click(self, event: Click) -> None:
+        """Handle mouse clicks on menu headers and items."""
+        widget = event.control
+        if not isinstance(widget, Static):
+            return
+        
+        # Check if click came from menu widgets we're interested in
+        try:
+            is_category = widget.has_class("category-header")
+            is_item = widget.has_class("menu-item")
+        except Exception:
+            widget_classes = set(getattr(widget, "classes", []))
+            is_category = "category-header" in widget_classes
+            is_item = "menu-item" in widget_classes
+        
+        if not (is_category or is_item):
+            return
+        
+        selected_item = self.select_widget_from_display(widget)
+        if not selected_item:
+            return
+        
+        event.stop()
+        
+        if selected_item["type"] == "item":
+            command = selected_item["data"].get("cmd", "").strip()
+            if command:
+                pause_setting = selected_item["data"].get("pause", False)
+                await self.run_external_command(command, pause_setting)
+        elif selected_item["type"] == "category":
+            await self.action_toggle_category()
+    
     def ensure_widget_visible(self, widget, index: int) -> None:
         """Ensure widget is visible with Linux-optimized scrolling."""
         if not widget or not self.menu_container:
@@ -1321,15 +1367,15 @@ class MenuMaker(App):
             
             if terminal_width < 60:
                 # Ultra compact for very small terminals (52x10)
-                self.status_bar.update(f"{current}/{total} | ↑↓ E Enter")
+                self.status_bar.update(f"{current}/{total} | ↑↓")
             elif terminal_width < 80:
                 # Compact for small terminals (71x16)
                 theme_short = self.app_theme[:4].title()
-                self.status_bar.update(f"{current}/{total} | {theme_short} | ↑↓ E Enter I ^B")
+                self.status_bar.update(f"{current}/{total} | {theme_short} | ↑↓ | Enter")
             else:
                 # Full status for larger terminals
                 theme_name = self.app_theme.title()
-                self.status_bar.update(f"Item {current}/{total} | Theme: {theme_name} | ↑↓ Navigate | Enter Execute | E Edit | I Info | ^B Scan")
+                self.status_bar.update(f"Item {current}/{total} | Theme: {theme_name} | ↑↓ Navigate | Enter Execute")
     
     def watch_current_index(self, new_index: int) -> None:
         """React to index changes."""
